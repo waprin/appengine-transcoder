@@ -38,6 +38,4 @@ RUN pip install -r /app/requirements.txt
 # # Add the application source code.
 ADD . /app
 
-ADD sample2.mp4 /tmp/sample2.mp4
-
-CMD gunicorn -b :$PORT main:app
+CMD python /app/worker.py

@@ -18,32 +18,28 @@ import string
 import random
 
 import logging
-from gcloud import storage
-from subprocess import call
+from gcloud import storage, pubsub
 
-import os 
+
+import os
+
+TOPIC = 'projects/adept-button-132222/topics/message'
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='test'
+
+app.debug = True
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
     return 'Hello World!'
 
-
 @app.route('/transcode')
 def transcode():
-    client = storage.Client('appengine-transcoder')
-    bucket = client.bucket('appengine-transcoder')
-    blob = bucket.blob('sample2.mp4')
-    f = open('/tmp/sample2.mp4', 'w')
-    blob.download_to_file(f)
-    ret = os.system('/usr/bin/avconv -i /tmp/sample2.mp4 -c:v libvpx -crf 10 -b:v 1M -c:a libvorbis /tmp/output.webm')
-    if ret:
-        return "Failed"
-    blob = bucket.blob('output.webm')
-    blob.upload_from_file('/tmp/output.webm')
+    pubsub_client = pubsub.Client('adept-button-132222')
+    topic = pubsub_client.topic("message")
+    topic.publish(b"message")
     return "Done"
 
 
