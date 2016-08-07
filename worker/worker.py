@@ -14,11 +14,11 @@
 
 import os
 from gcloud import storage, pubsub
-import psq
 import sys
 
-TOPIC = 'projects/adept-button-132222/topics/message'
+
 PROJECT_ID = 'adept-button-132222'
+TOPIC = 'projects/{}/topics/message'.format(PROJECT_ID)
 
 def transcode():
     client = storage.Client(PROJECT_ID)

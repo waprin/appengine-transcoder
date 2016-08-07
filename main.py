@@ -20,7 +20,9 @@ import random
 import logging
 from gcloud import storage, pubsub
 
-TOPIC = 'projects/adept-button-132222/topics/message'
+PROJECT_ID = 'your-project-id'
+
+TOPIC = 'projects/{}/topics/message'.format(PROJECT_ID)
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='test'
@@ -29,7 +31,7 @@ app.debug = True
 
 @app.route('/transcode')
 def transcode():
-    pubsub_client = pubsub.Client('adept-button-132222')
+    pubsub_client = pubsub.Client(PROJECT_ID)
     topic = pubsub_client.topic("message")
     topic.publish(b"message")
     return "Done"
