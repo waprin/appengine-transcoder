@@ -23,7 +23,7 @@ PROJECT_ID = 'adept-button-132222'
 def transcode():
     client = storage.Client(PROJECT_ID)
     bucket = client.bucket('appengine-transcoder')
-    blob = bucket.blob('sample2.mp4')
+    blob = bucket.blob('sample.mp4')
     with open('/tmp/sample2.mp4', 'w') as f:
         blob.download_to_file(f)
     os.system('rm /tmp/output.webm')
@@ -40,7 +40,6 @@ if __name__ == '__main__':
     pubsub_client = pubsub.Client(PROJECT_ID)
     topic = pubsub_client.topic("message")
     sub = pubsub.Subscription("mysub", topic=topic)
-#    sub.create()
     sys.stderr.write("Polling the topic")
     while True:
         messages = sub.pull(

@@ -12,16 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 from flask import Flask
+import os
 import string
 import random
 
 import logging
 from gcloud import storage, pubsub
-
-
-import os
 
 TOPIC = 'projects/adept-button-132222/topics/message'
 
@@ -29,11 +26,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY']='test'
 
 app.debug = True
-
-@app.route('/')
-def hello():
-    """Return a friendly HTTP greeting."""
-    return 'Hello World!'
 
 @app.route('/transcode')
 def transcode():

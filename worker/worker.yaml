@@ -14,8 +14,7 @@
 
 # This file specifies your Python application's runtime configuration.
 # See https://cloud.google.com/appengine/docs/managed-vms/config for details.
-
-module: worker
+service: worker
 runtime: custom
 vm: true
 

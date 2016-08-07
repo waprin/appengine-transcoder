@@ -20,7 +20,6 @@ FROM gcr.io/google_appengine/python
 
 RUN apt-get -y update && apt-get install -y libav-tools 
 
-
 # Create a virtualenv for dependencies. This isolates these packages from
  # system-level packages.
 RUN virtualenv /env
@@ -37,7 +36,5 @@ RUN pip install -r /app/requirements.txt
 
 # # Add the application source code.
 ADD . /app
-
-ADD sample2.mp4 /tmp/sample2.mp4
 
 CMD gunicorn -b :$PORT main:app
