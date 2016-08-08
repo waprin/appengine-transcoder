@@ -32,7 +32,11 @@ process.
 
 ## Help
 
-File and issue on the issue tracker.
+File an issue on the issue tracker.
+
+## Copyright
+
+Copyright Google 2016, but not an official Google product or service
 
 ## Contributing changes
 
