@@ -6,6 +6,8 @@ Please note this is a simple demonstration repo and not ready to productionize!
 
 See the associated Medium post for more info. Please use the Issue Tracker for any problems.
 
+https://medium.com/@waprin/scalable-video-transcoding-with-app-engine-flexible-621f6e7fdf56#.f2vgzta5q
+
 ## Overview
 
 Docekrfile and  app.yaml are used to configure the main web worker, main.py.
