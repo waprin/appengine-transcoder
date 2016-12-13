@@ -17,12 +17,13 @@ from gcloud import storage, pubsub
 import sys
 
 
-PROJECT_ID = 'adept-button-132222'
+PROJECT_ID = 'your-project-id'
 TOPIC = 'projects/{}/topics/message'.format(PROJECT_ID)
+
 
 def transcode():
     client = storage.Client(PROJECT_ID)
-    bucket = client.bucket('appengine-transcoder')
+    bucket = client.bucket(PROJECT_ID)
     blob = bucket.blob('sample.mp4')
     with open('/tmp/sample2.mp4', 'w') as f:
         blob.download_to_file(f)
@@ -39,7 +40,11 @@ def transcode():
 if __name__ == '__main__':
     pubsub_client = pubsub.Client(PROJECT_ID)
     topic = pubsub_client.topic("message")
+    if not topic.exists():
+        topic.create()
     sub = pubsub.Subscription("mysub", topic=topic)
+    if not sub.exists():
+        sub.create()
     sys.stderr.write("Polling the topic")
     while True:
         messages = sub.pull(
