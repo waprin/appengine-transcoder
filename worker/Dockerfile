@@ -18,7 +18,7 @@
 #   https://github.com/GoogleCloudPlatform/python-docker
 FROM gcr.io/google_appengine/python
 
-RUN apt-get -y update && apt-get install -y libav-tools 
+RUN apt-get -y update && apt-get install -y libav-tools
 
 
 # Create a virtualenv for dependencies. This isolates these packages from
@@ -38,4 +38,4 @@ RUN pip install -r /app/requirements.txt
 # # Add the application source code.
 ADD . /app
 
-CMD python /app/worker.py
+CMD honcho start -f /app/procfile worker monitor

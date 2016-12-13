@@ -1,4 +1,4 @@
-# Copyright 2015 Google Inc.
+# Copyright 2016 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This file specifies your Python application's runtime configuration.
-# See https://cloud.google.com/appengine/docs/managed-vms/config for details.
 service: worker
 runtime: custom
-vm: true
-
-# Instead of using gunicorn directly, we'll use Honcho. Honcho is a python port
-# of the Foreman process manager. For the worker module, both the queue worker
-# and the monitor process are needed.
-entrypoint: python /app/worker.py
-
-env_variables:
-    PYTHONUNBUFFERED: 1
-
-vm_health_check:
-    enable_health_check: False
+env: flex

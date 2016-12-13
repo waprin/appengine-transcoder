@@ -1,4 +1,4 @@
-# Copyright 2015 Google Inc.
+# Copyright 2016 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This file specifies your Python application's runtime configuration.
-# See https://cloud.google.com/appengine/docs/managed-vms/config for details.
+from flask import Flask
 
-runtime: custom
-env: flex
+monitor_app = Flask(__name__)
+
+
+# The health check reads the PID file created by psqworker and checks the proc
+# filesystem to see if the worker is running. This same pattern can be used for
+# rq and celery.
+@monitor_app.route('/_ah/health')
+def health():
+    return 'healthy', 200
+
+
+@monitor_app.route('/')
+def index():
+    return health()
+
+if __name__ == '__main__':
+    monitor_app.run('0.0.0.0', 8080)
